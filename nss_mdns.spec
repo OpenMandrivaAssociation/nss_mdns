@@ -56,9 +56,9 @@ if [ $1 = 1 ]; then
     source /etc/sysconfig/network
     if [ "${NETWORKING_IPV6}" = "yes" ]; then 
         # for both ipv6 and ipv4
-        perl -pi -e '!/mdns/ && s/^(hosts:\s*)(.*)$/$1 mdns $2/' /etc/nsswitch.conf
+        perl -pi -e '!/mdns/ && s/^(hosts:\s*)([^#]*)(#?.*)$/$1 mdns_minimal $2 mdns $3/' /etc/nsswitch.conf
     else
-        perl -pi -e '!/mdns/ && s/^(hosts:\s*)(.*)$/$1 mdns4 $2/' /etc/nsswitch.conf
+        perl -pi -e '!/mdns/ && s/^(hosts:\s*)([^#]*)(#?.*)$/$1 mdns4_minimal $2 mdns4 $3/' /etc/nsswitch.conf
     fi
 fi
 
