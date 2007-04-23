@@ -65,6 +65,7 @@ fi
 %postun 
 /sbin/ldconfig
 if [ $1 = 0 ]; then
+    perl -pi -e 's/^(hosts:.*)\smdns_minimal\d?(\s.*)$/$1 $2/' /etc/nsswitch.conf
     perl -pi -e 's/^(hosts:.*)\smdns\d?(\s.*)$/$1 $2/' /etc/nsswitch.conf
 fi
 
