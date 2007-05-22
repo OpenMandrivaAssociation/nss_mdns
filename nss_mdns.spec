@@ -1,16 +1,17 @@
 %define real_name nss-mdns 
 %define rel 1
 
-Summary:    Multicast dns support for glibc domain resolver  
-Name:       nss_mdns
-Version:    0.9
-Release:    %mkrel %rel
-Source: 	http://0pointer.de/lennart/projects/%real_name/%real_name-%version.tar.bz2
+Summary:	Multicast dns support for glibc domain resolver  
+Name:		nss_mdns
+Version:	0.10
+Release:	%mkrel %rel
+Source:		http://0pointer.de/lennart/projects/%real_name/%real_name-%version.tar.bz2
 Group:		System/Libraries
 License:	GPL
-BuildRequires: libavahi-core-devel 
+BuildRequires:	libavahi-core-devel 
 Buildroot:	%{_tmppath}/%{name}-%{version}-buildroot
 Url:		http://0pointer.de/lennart/projects/%real_name/
+
 %description
 nss-mdns is a plugin for the Name Service Switch (NSS) functionality of the 
 glibc providing host name resolution via Multicast DNS (aka Zeroconf, aka 
@@ -71,5 +72,3 @@ fi
 
 %clean
 rm -rf %{buildroot}
-
-
