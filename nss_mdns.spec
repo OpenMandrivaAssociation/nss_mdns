@@ -9,6 +9,7 @@ Source:		http://0pointer.de/lennart/projects/%real_name/%real_name-%version.tar.
 Group:		System/Libraries
 License:	GPL
 BuildRequires:	libavahi-core-devel 
+Buildroot:	%{_tmppath}/%{name}-%{version}-buildroot
 Url:		http://0pointer.de/lennart/projects/%real_name/
 
 %description
