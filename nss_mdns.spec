@@ -3,13 +3,15 @@
 Summary:	Multicast dns support for glibc domain resolver  
 Name:		nss_mdns
 Version:	0.10
-Release:	%mkrel 2
+Release:	%mkrel 3
 Source:		http://0pointer.de/lennart/projects/%real_name/%real_name-%version.tar.bz2
 Group:		System/Libraries
 License:	GPL
 BuildRequires:	libavahi-core-devel 
 Buildroot:	%{_tmppath}/%{name}-%{version}-buildroot
 Url:		http://0pointer.de/lennart/projects/%real_name/
+# for /etc/sysconfig/network
+Requires(post): initscripts
 
 %description
 nss-mdns is a plugin for the Name Service Switch (NSS) functionality of the 
