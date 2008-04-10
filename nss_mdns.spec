@@ -55,7 +55,7 @@ EOF
 
 if [ $1 = 1 ]; then
    # ipv4 by default, as explained on the webpage
-    source /etc/sysconfig/network
+    [ -f /etc/sysconfig/network ] && source /etc/sysconfig/network
     if [ "${NETWORKING_IPV6}" = "yes" ]; then 
         # for both ipv6 and ipv4
         perl -pi -e '!/mdns/ && s/^(hosts:\s*)([^#]*)(#?.*)$/$1 mdns_minimal $2 mdns $3/' /etc/nsswitch.conf
