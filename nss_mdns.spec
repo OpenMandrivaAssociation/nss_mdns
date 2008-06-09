@@ -51,7 +51,9 @@ EOF
 %config(noreplace) %_sysconfdir/mdns.allow
 
 %post 
+%if %mdkversion < 200900
 /sbin/ldconfig
+%endif
 
 if [ $1 = 1 ]; then
    # ipv4 by default, as explained on the webpage
@@ -65,7 +67,9 @@ if [ $1 = 1 ]; then
 fi
 
 %postun 
+%if %mdkversion < 200900
 /sbin/ldconfig
+%endif
 if [ $1 = 0 ]; then
     perl -pi -e 's/^(hosts:.*)\smdns_minimal\d?(\s.*)$/$1 $2/' /etc/nsswitch.conf
     perl -pi -e 's/^(hosts:.*)\smdns\d?(\s.*)$/$1 $2/' /etc/nsswitch.conf
