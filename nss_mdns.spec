@@ -1,26 +1,26 @@
-%define real_name nss-mdns 
+%define real_name nss-mdns
 
-Summary:	Multicast dns support for glibc domain resolver  
+Summary:	Multicast dns support for glibc domain resolver
 Name:		nss_mdns
 Version:	0.10
-Release:	%mkrel 4
+Release:	%mkrel 5
 Source:		http://0pointer.de/lennart/projects/%real_name/%real_name-%version.tar.bz2
 Group:		System/Libraries
 License:	GPL
-BuildRequires:	libavahi-core-devel 
+BuildRequires:	libavahi-core-devel
 Buildroot:	%{_tmppath}/%{name}-%{version}-buildroot
 Url:		http://0pointer.de/lennart/projects/%real_name/
 # for /etc/sysconfig/network
 Requires(post): initscripts
 
 %description
-nss-mdns is a plugin for the Name Service Switch (NSS) functionality of the 
-glibc providing host name resolution via Multicast DNS (aka Zeroconf, aka 
-Apple Rendezvous), effectively allowing name resolution by common 
+nss-mdns is a plugin for the Name Service Switch (NSS) functionality of the
+glibc providing host name resolution via Multicast DNS (aka Zeroconf, aka
+Apple Rendezvous), effectively allowing name resolution by common
 Unix/Linux programs in the ad-hoc mDNS domain .local.
 
-nss-mdns provides client functionality only, which means that you have to run 
-a mDNS responder daemon separately from nss-mdns if you want to register 
+nss-mdns provides client functionality only, which means that you have to run
+a mDNS responder daemon separately from nss-mdns if you want to register
 the local host name via mDNS.
 
 %prep
@@ -50,7 +50,7 @@ EOF
 /%_lib/*
 %config(noreplace) %_sysconfdir/mdns.allow
 
-%post 
+%post
 %if %mdkversion < 200900
 /sbin/ldconfig
 %endif
@@ -58,15 +58,15 @@ EOF
 if [ $1 = 1 ]; then
    # ipv4 by default, as explained on the webpage
     [ -f /etc/sysconfig/network ] && source /etc/sysconfig/network
-    if [ "${NETWORKING_IPV6}" = "yes" ]; then 
+    if [ "${NETWORKING_IPV6}" = "yes" ]; then
         # for both ipv6 and ipv4
-        perl -pi -e '!/mdns/ && s/^(hosts:\s*)([^#]*)(#?.*)$/$1 mdns_minimal $2 mdns $3/' /etc/nsswitch.conf
+        perl -pi -e '!/mdns/ && s/^(hosts:\s*)([^#\n]*)(#?.*)$/$1 mdns_minimal $2 mdns $3/' /etc/nsswitch.conf
     else
-        perl -pi -e '!/mdns/ && s/^(hosts:\s*)([^#]*)(#?.*)$/$1 mdns4_minimal $2 mdns4 $3/' /etc/nsswitch.conf
+        perl -pi -e '!/mdns/ && s/^(hosts:\s*)([^#\n]*)(#?.*)$/$1 mdns4_minimal $2 mdns4 $3/' /etc/nsswitch.conf
     fi
 fi
 
-%postun 
+%postun
 %if %mdkversion < 200900
 /sbin/ldconfig
 %endif
