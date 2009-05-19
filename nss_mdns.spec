@@ -27,7 +27,7 @@ the local host name via mDNS.
 %setup -q -n %real_name-%version
 
 %build
-%configure --localstatedir=/var/ --libdir=/%_lib --enable-avahi
+%configure2_5x --localstatedir=/var/ --libdir=/%_lib --enable-avahi
 %make
 
 %install
