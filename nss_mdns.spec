@@ -3,7 +3,7 @@
 Summary:	Multicast dns support for glibc domain resolver
 Name:		nss_mdns
 Version:	0.10
-Release:	%mkrel 9
+Release:	%mkrel 10
 Source:		http://0pointer.de/lennart/projects/%real_name/%real_name-%version.tar.bz2
 Group:		System/Libraries
 License:	GPL
