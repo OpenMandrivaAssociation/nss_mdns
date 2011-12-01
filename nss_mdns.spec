@@ -33,10 +33,10 @@ the local host name via mDNS.
 %install
 rm -rf %{buildroot}
 %makeinstall
-mv $RPM_BUILD_ROOT/%_libdir/ $RPM_BUILD_ROOT/%_lib
+mv %{buildroot}/%_libdir/ %{buildroot}/%_lib
 
-mkdir -p $RPM_BUILD_ROOT/%_sysconfdir/
-cat > $RPM_BUILD_ROOT/%_sysconfdir/mdns.allow  <<EOF
+mkdir -p %{buildroot}/%_sysconfdir/
+cat > %{buildroot}/%_sysconfdir/mdns.allow  <<EOF
 # place here the domain that should be resolved by multicast dns
 # use * to include all ( not recommended )
 .local.
