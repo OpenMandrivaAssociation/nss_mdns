@@ -3,7 +3,7 @@
 Summary:	Multicast dns support for glibc domain resolver
 Name:		nss_mdns
 Version:	0.10
-Release:	%mkrel 10
+Release:	%mkrel 11
 Source:		http://0pointer.de/lennart/projects/%real_name/%real_name-%version.tar.bz2
 Group:		System/Libraries
 License:	GPL
@@ -33,10 +33,10 @@ the local host name via mDNS.
 %install
 rm -rf %{buildroot}
 %makeinstall
-mv %{buildroot}/%_libdir/ %{buildroot}/%_lib
+mv $RPM_BUILD_ROOT/%_libdir/ $RPM_BUILD_ROOT/%_lib
 
-mkdir -p %{buildroot}/%_sysconfdir/
-cat > %{buildroot}/%_sysconfdir/mdns.allow  <<EOF
+mkdir -p $RPM_BUILD_ROOT/%_sysconfdir/
+cat > $RPM_BUILD_ROOT/%_sysconfdir/mdns.allow  <<EOF
 # place here the domain that should be resolved by multicast dns
 # use * to include all ( not recommended )
 .local.
@@ -77,3 +77,74 @@ fi
 
 %clean
 rm -rf %{buildroot}
+
+
+%changelog
+* Tue Feb 21 2012 abf
+- The release updated by ABF
+
+* Wed May 04 2011 Oden Eriksson <oeriksson@mandriva.com> 0.10-10mdv2011.0
++ Revision: 666629
+- mass rebuild
+
+* Fri Dec 03 2010 Oden Eriksson <oeriksson@mandriva.com> 0.10-9mdv2011.0
++ Revision: 606829
+- rebuild
+
+* Mon Mar 15 2010 Oden Eriksson <oeriksson@mandriva.com> 0.10-8mdv2010.1
++ Revision: 520195
+- rebuilt for 2010.1
+
+* Thu Sep 03 2009 Christophe Fergeau <cfergeau@mandriva.com> 0.10-7mdv2010.0
++ Revision: 426258
+- rebuild
+- use %%configure2_5x instead of %%configure (to avoid calling libtoolize)
+
+* Thu Dec 25 2008 Adam Williamson <awilliamson@mandriva.org> 0.10-6mdv2009.1
++ Revision: 318784
+- rebuild for new avahi-core major
+
+* Wed Jul 30 2008 Michael Scherer <misc@mandriva.org> 0.10-5mdv2009.0
++ Revision: 254778
+- fix bug 33612, thanks to eric piel for the fix
+- remove trailling whitespace in spec
+
+* Tue Jun 17 2008 Thierry Vignaud <tv@mandriva.org> 0.10-4mdv2009.0
++ Revision: 223352
+- rebuild
+
+  + Pixel <pixel@mandriva.com>
+    - do not call ldconfig in %%post/%%postun, it is now handled by filetriggers
+
+  + Michael Scherer <misc@mandriva.org>
+    - check that /etc/sysconfig/network existe before source it, reported by muny/yvan
+      on irc
+
+* Tue Mar 25 2008 Olivier Blin <oblin@mandriva.com> 0.10-3mdv2008.1
++ Revision: 189917
+- require initscripts in post script so that /etc/sysconfig/network is available
+
+* Tue Mar 04 2008 Oden Eriksson <oeriksson@mandriva.com> 0.10-2mdv2008.1
++ Revision: 179098
+- rebuild
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - kill re-definition of %%buildroot on Pixel's request
+
+* Tue May 22 2007 Tomasz Pawel Gajc <tpg@mandriva.org> 0.10-1mdv2008.0
++ Revision: 29702
+- new upstream version
+
+  + Michael Scherer <misc@mandriva.org>
+    - fix uninstallation scriptlet
+    - fix scriptlet to place mdns_minimal before and mdns at the end, related to bug #30340
+
+
+* Thu Jan 04 2007 Michael Scherer <misc@mandriva.org> 0.9-1mdv2007.0
++ Revision: 104201
+- update to 0.9
+- Import nss_mdns
+
