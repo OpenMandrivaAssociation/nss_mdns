@@ -31,7 +31,7 @@ the local host name via mDNS.
 
 %install
 %makeinstall
-mv %{buildroot}%{_libdir}/ %{buildroot}%{_lib}
+mv %{buildroot}%{_libdir}/ %{buildroot}/%{_lib}
 
 mkdir -p %{buildroot}%{_sysconfdir}/
 cat > %{buildroot}%{_sysconfdir}/mdns.allow  <<EOF
