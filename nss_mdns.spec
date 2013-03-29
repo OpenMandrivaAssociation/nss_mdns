@@ -3,15 +3,14 @@
 Summary:	Multicast dns support for glibc domain resolver
 Name:		nss_mdns
 Version:	0.10
-Release:	%mkrel 11
-Source:		http://0pointer.de/lennart/projects/%real_name/%real_name-%version.tar.bz2
+Release:	12
+Source0:	http://0pointer.de/lennart/projects/%real_name/%real_name-%version.tar.bz2
 Group:		System/Libraries
 License:	GPL
 BuildRequires:	libavahi-core-devel
-Buildroot:	%{_tmppath}/%{name}-%{version}-buildroot
-Url:		http://0pointer.de/lennart/projects/%real_name/
+Url:	http://0pointer.de/lennart/projects/%real_name/
 # for /etc/sysconfig/network
-Requires(post): initscripts
+Requires(post):	initscripts
 
 %description
 nss-mdns is a plugin for the Name Service Switch (NSS) functionality of the
@@ -27,16 +26,15 @@ the local host name via mDNS.
 %setup -q -n %real_name-%version
 
 %build
-%configure2_5x --localstatedir=/var/ --libdir=/%_lib --enable-avahi
+%configure2_5x --localstatedir=/var/ --libdir=/%{_lib} --enable-avahi
 %make
 
 %install
-rm -rf %{buildroot}
 %makeinstall
-mv $RPM_BUILD_ROOT/%_libdir/ $RPM_BUILD_ROOT/%_lib
+mv %{buildroot}%{_libdir}/ %{buildroot}%{_lib}
 
-mkdir -p $RPM_BUILD_ROOT/%_sysconfdir/
-cat > $RPM_BUILD_ROOT/%_sysconfdir/mdns.allow  <<EOF
+mkdir -p %{buildroot}%{_sysconfdir}/
+cat > %{buildroot}%{_sysconfdir}/mdns.allow  <<EOF
 # place here the domain that should be resolved by multicast dns
 # use * to include all ( not recommended )
 .local.
