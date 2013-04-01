@@ -3,11 +3,11 @@
 Summary:	Multicast dns support for glibc domain resolver
 Name:		nss_mdns
 Version:	0.10
-Release:	12
+Release:	13
 Source0:	http://0pointer.de/lennart/projects/%real_name/%real_name-%version.tar.bz2
 Group:		System/Libraries
 License:	GPL
-BuildRequires:	libavahi-core-devel
+BuildRequires:	avahi-core-devel
 Url:	http://0pointer.de/lennart/projects/%real_name/
 # for /etc/sysconfig/network
 Requires(post):	initscripts
