@@ -6,15 +6,15 @@
 Summary:	Multicast dns support for glibc domain resolver
 Name:		nss_mdns
 Version:	0.10
-Release:	25
+Release:	26
 License:	GPLv2+
 Group:		System/Libraries
 Url:		http://0pointer.de/lennart/projects/%{rname}/
 Source0:	http://0pointer.de/lennart/projects/%{rname}/%{rname}-%{version}.tar.bz2
 BuildRequires:	pkgconfig(avahi-core)
-# for /etc/sysconfig/network
-Requires(post):	initscripts
+Requires(post,postun):	sed
 Requires:	%{name}-libraries
+Requires:	avahi
 
 %description
 nss-mdns is a plugin for the Name Service Switch (NSS) functionality of the
@@ -32,20 +32,23 @@ the local host name via mDNS.
 
 %post
 if [ $1 = 1 ]; then
-   # ipv4 by default, as explained on the webpage
-    [ -f %{_sysconfdir}/sysconfig/network ] && source %{_sysconfdir}/sysconfig/network
-    if [ "${NETWORKING_IPV6}" = "yes" ]; then
-        # for both ipv6 and ipv4
-        perl -pi -e '!/mdns/ && s/^(hosts:\s*)([^#\n]*)(#?.*)$/$1 mdns_minimal $2 mdns $3/' %{_sysconfdir}/nsswitch.conf
-    else
-        perl -pi -e '!/mdns/ && s/^(hosts:\s*)([^#\n]*)(#?.*)$/$1 mdns4_minimal $2 mdns4 $3/' %{_sysconfdir}/nsswitch.conf
+    if [ -f /etc/nsswitch.conf ] ; then
+	sed -i.bak '
+	    /^hosts:/ !b
+	    /\<mdns\(4\|6\)\?\(_minimal\)\?\>/ b
+	    s/\([[:blank:]]\+\)dns\>/\1mdns4_minimal [NOTFOUND=return] dns/g
+	    ' /etc/nsswitch.conf
     fi
 fi
 
 %postun
 if [ $1 = 0 ]; then
-    perl -pi -e 's/^(hosts:.*)\smdns_minimal\d?(\s.*)$/$1 $2/' %{_sysconfdir}/nsswitch.conf
-    perl -pi -e 's/^(hosts:.*)\smdns\d?(\s.*)$/$1 $2/' %{_sysconfdir}/nsswitch.conf
+    if [ -f -a /etc/nsswitch.conf ] ; then
+	sed -i.bak '
+	    /^hosts:/ !b
+	    s/[[:blank:]]\+mdns\(4\|6\)\?\(_minimal\( \[NOTFOUND=return\]\)\?\)\?//g
+	    ' /etc/nsswitch.conf
+    fi
 fi
 
 #----------------------------------------------------------------------------
@@ -69,7 +72,7 @@ Plugin libraries for nss-mdns.
 %setup -qn %{rname}-%{version}
 
 %build
-%configure2_5x \
+%configure \
 	--localstatedir=%{_var}/ \
 	--libdir=/%{_lib} \
 	--enable-avahi
