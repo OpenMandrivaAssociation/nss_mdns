@@ -6,7 +6,7 @@
 Summary:	Multicast dns support for glibc domain resolver
 Name:		nss_mdns
 Version:	0.10
-Release:	27
+Release:	28
 License:	GPLv2+
 Group:		System/Libraries
 Url:		http://0pointer.de/lennart/projects/%{rname}/
@@ -72,8 +72,10 @@ Plugin libraries for nss-mdns.
 %setup -qn %{rname}-%{version}
 
 %build
+# nss_mdns looks for the avahi daemon socket in /$localstatedir/run/avahi-daemon
+# so just use / as ours is in /run/avahi-daemon
 %configure \
-	--localstatedir=%{_var}/ \
+	--localstatedir=/ \
 	--libdir=/%{_lib} \
 	--enable-avahi
 %make
