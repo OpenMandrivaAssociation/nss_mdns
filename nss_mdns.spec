@@ -3,7 +3,7 @@
 Summary:	Multicast dns support for glibc domain resolver
 Name:		nss_mdns
 Version:	0.10
-Release:	18
+Release:	19
 Source0:	http://0pointer.de/lennart/projects/%real_name/%real_name-%version.tar.bz2
 Group:		System/Libraries
 License:	GPL
@@ -26,7 +26,10 @@ the local host name via mDNS.
 %setup -q -n %real_name-%version
 
 %build
-%configure2_5x --localstatedir=/var/ --libdir=/%{_lib} --enable-avahi
+
+# nss_mdns looks for the avahi daemon socket in /$localstatedir/run/avahi-daemon
+# so just use / as ours is in /run/avahi-daemon
+%configure2_5x --localstatedir=/ --libdir=/%{_lib} --enable-avahi
 %make
 
 %install
