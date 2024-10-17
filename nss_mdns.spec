@@ -9,7 +9,7 @@ Version:	0.10
 Release:	34
 License:	GPLv2+
 Group:		System/Libraries
-Url:		http://0pointer.de/lennart/projects/%{rname}/
+Url:		https://0pointer.de/lennart/projects/%{rname}/
 Source0:	http://0pointer.de/lennart/projects/%{rname}/%{rname}-%{version}.tar.bz2
 BuildRequires:	pkgconfig(avahi-core)
 Requires(post,postun):	sed
