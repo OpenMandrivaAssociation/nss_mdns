@@ -28,7 +28,6 @@ a mDNS responder daemon separately from nss-mdns if you want to register
 the local host name via mDNS.
 
 %files
-%doc README doc/README.html doc/style.css
 %config(noreplace) %{_sysconfdir}/mdns.allow
 
 %post
