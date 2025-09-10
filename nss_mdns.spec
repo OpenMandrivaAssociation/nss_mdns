@@ -5,12 +5,13 @@
 
 Summary:	Multicast dns support for glibc domain resolver
 Name:		nss_mdns
-Version:	0.10
-Release:	34
+Version:	0.15.1
+Release:	1
 License:	GPLv2+
 Group:		System/Libraries
 Url:		https://0pointer.de/lennart/projects/%{rname}/
-Source0:	http://0pointer.de/lennart/projects/%{rname}/%{rname}-%{version}.tar.bz2
+#Source0:	http://0pointer.de/lennart/projects/%{rname}/%{rname}-%{version}.tar.bz2
+Source0:	https://github.com/avahi/nss-mdns/releases/download/v%{version}/nss-mdns-%{version}.tar.gz
 BuildRequires:	pkgconfig(avahi-core)
 Requires(post,postun):	sed
 Requires:	%{name}-libraries
